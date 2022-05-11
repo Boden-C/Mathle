@@ -1,3 +1,6 @@
-public class Operator {
-    
+enum Operator {
+    ADD,
+    SUBTRACT,
+    DIVIDE,
+    MULTIPLY
 }
