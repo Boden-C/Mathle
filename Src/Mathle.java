@@ -1,5 +1,6 @@
 package Src;
 import java.lang.Math;
+import java.util.Scanner;
 
 enum Operator {
     ADD,
@@ -11,6 +12,7 @@ enum Operator {
 public class Mathle {
     private final int length;
     private Equation equation;
+    Scanner myObj = new Scanner(System.in);
     
 
     public Mathle(int length) {
@@ -62,5 +64,28 @@ public class Mathle {
 
     public void play() {
         System.out.println(equation.getEquation());
+        String user = new String[1]
+        While(user.equals(equation) == false){
+        if(len(user) - user.count(" ") < 6){
+            user = myObj.nextLine();
+            system.out.println("You dont have enough characters");
+        }
+         
+            else {
+                system.out.println("Wrong, Try Again!");
+            user.setLenth(0);
+            }
+        }
+        system.out.println("Congrats you did it!")
+    }
+        
+
+        
+
+
+
+
+
+
     }
 }
