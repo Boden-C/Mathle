@@ -19,7 +19,7 @@ public class OperatorGenerator {
                     possibilites.remove(Operator.DIVIDE);
                     continue;
                 } else {
-                    for (int j = 0; j < chanceForNonReapting*2; j++) { // y=t\left(-r^{x}+1\right)
+                    for (int j = 0; j < chanceForNonReapting; j++) { // y=t\left(-r^{x}+1\right)
                     possibilites.add(Operator.DIVIDE);
                 }
                 }

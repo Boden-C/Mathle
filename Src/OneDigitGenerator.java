@@ -13,7 +13,6 @@ public class OneDigitGenerator implements NumberGenerator {
 
         possibilites = new ArrayList<>();
         for (int i=2; i<=9; i++) { 
-
             possibilites.add(i); //give all digits an equal chance to be used    
             if (parameter.getPastDigits().indexOf(i) == -1) { //if digit does not exist in past, increase the chance to get it   
                 for (int j=0; j<chanceForNonReapting*(Math.pow(-exponentialIncreaseForHigh,i)+1); j++) {  //y=t\left(-r^{x}+1\right)

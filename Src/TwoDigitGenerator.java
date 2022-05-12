@@ -19,7 +19,7 @@ public class TwoDigitGenerator implements NumberGenerator {
 
             possibilites.add(i); //give all digits an equal chance to be used    
             if (parameter.getPastDigits().indexOf(i) == -1 || i == 1 || i == 2) { //if digit does not exist in past, increase the chance to get it   
-                for (int j=0; j<chanceForLow*Math.pow(exponentialDecreaseForHigh,i)+1; j++) {  //t\left(r^{x}\right)+1
+                for (int j=0; j<chanceForLow*Math.pow(exponentialDecreaseForHigh,i)+1; j++) {  //y=t\left(r^{x}\right)+1
                     possibilites.add(i);
                 }
             }

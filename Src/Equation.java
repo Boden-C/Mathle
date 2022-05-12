@@ -8,29 +8,35 @@ public class Equation {
     private ArrayList<Number> pastNumbers;
     private ArrayList<Operator> pastOperators;
     private int currentValue;
+    private boolean log;
 
     public Equation() {
         equation = "";
         currentValue = 0;
         pastNumbers = new ArrayList<>();
         pastOperators = new ArrayList<>();
+        log = true;
     }
 
     public boolean addNumber(Number number) {
         String numString = number.getDigits().stream().map(String::valueOf).collect(Collectors.joining(""));
-        System.out.println("Trying:"+equation+numString);
+        if (log) { System.out.println("Trying:"+equation+numString); };
         Double check = eval(equation+numString);
-        if (check > 0 && check % 1 == 0) {
+        if (check > 0 && check % 1 == 0 && check < 300) {
             pastNumbers.add(number);
             equation += numString;
             currentValue = check.intValue();
             return true;
         }
-        System.out.println("Failed:"+check);
+        if (log) { System.out.println("Failed:"+check); };
         return false;
     }
 
     public boolean addOperator(Operator operator) {
+        String lastChar = equation.substring(equation.length()-1);
+        if (lastChar.equals("+") || lastChar.equals("-") || lastChar.equals("*") || lastChar.equals("/")) {
+            return false;
+        }
         String operatorString;
         switch (operator) {
             case ADD: operatorString = "+"; break;
@@ -67,6 +73,14 @@ public class Equation {
         return pastOnesPlaces;
     }
 
+    public ArrayList<Operator> getPastOperators() {
+        return pastOperators;
+    }
+
+    public String getEquation() {
+        return equation;
+    }
+
     public Integer getResult(int of) {
         String lastChar = equation.substring(equation.length()-1);
         int lastInt = pastNumbers.get(pastNumbers.size()-1).getNumber();
@@ -77,14 +91,6 @@ public class Equation {
             case "*": return lastInt+of;
             default: return null;
         }
-    }
-
-    public ArrayList<Operator> getPastOperators() {
-        return pastOperators;
-    }
-
-    public String getEquation() {
-        return equation;
     }
 
     public int getCurrentValue() {

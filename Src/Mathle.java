@@ -12,10 +12,12 @@ enum Operator {
 public class Mathle {
     private final int length;
     private Equation equation;
+    private boolean log;
     Scanner myObj = new Scanner(System.in);
     
 
     public Mathle(int length) {
+        log = true;
         if (length<3) {
             this.length = 3;
             System.out.println("Smallest length is 3");
@@ -23,30 +25,29 @@ public class Mathle {
             this.length = length;
         }
         equation = new Equation();
-        create(length);
+        while (!create(length, 0.4));
     }
 
     //disclaimer: everything below is made by a very sleep deprived Boden. Please don't look.
 
-    public void create(int length) {
+    public boolean create(int length, Double tensChance) {
         equation = new Equation();
 
         boolean isAtNumber = true;
         for (int i=0; i<length-3; i++) {
             if (isAtNumber) {
-                if (Math.random() > 0.4 || i>length-5) {
+                if (Math.random() > tensChance || i>length-5) {
                     findNumber(new OneDigitGenerator(equation));
                 } else {
                     if (!findNumber(new TwoDigitGenerator(equation))) {
-                        System.out.println("Restarting...");
-                        create(length);
-                        return;
+                        if (log) { System.out.println("Restarting..."); };
+                        return false;
                     };
                     i++;
                 }
             } else {
                 findOperator(new OperatorGenerator(equation));
-
+                System.out.println(equation.getEquation());
             }   
             isAtNumber = !isAtNumber;
         }
@@ -57,12 +58,11 @@ public class Mathle {
         } else {
             findOperator(new OperatorGenerator(equation));
             if (!findNumber(new TwoDigitGenerator(equation))) {
-                System.out.println("Restarting...");
-                create(length);
-                return;
+                if (log) { System.out.println("Restarting..."); };
+                return false;
             };
         }
-        return;
+        return true;
     }
 
     public boolean findNumber(NumberGenerator n) {
@@ -73,7 +73,7 @@ public class Mathle {
             }
             i = n.getRandom();
         }
-        System.out.println("Too Many Failed Attempts");
+        if (log) { System.out.println("Too Many Failed Attempts"); };
         return false;
     }
 
@@ -89,29 +89,22 @@ public class Mathle {
     }
 
     public void play() {
+        System.out.println("Find a "+length+" character equation that equals "+equation.getCurrentValue());
         System.out.println(equation.getEquation());
-        String user = new String[1]
-        While(user.equals(equation) == false){
-        if(len(user) - user.count(" ") < 6){
-            user = myObj.nextLine();
-            system.out.println("You dont have enough characters");
-        }
+        System.out.println("Correct!");
+    //     Doesn't work, not even close.
+    //     String user = new String[1];
+    //     while (user.equals(equation) == false){
+    //     if(len(user) - user.count(" ") < 6){
+    //         user = myObj.nextLine();
+    //         system.out.println("You dont have enough characters");
+    //     }
          
-            else {
-                system.out.println("Wrong, Try Again!");
-            user.setLenth(0);
-            }
-        }
-        system.out.println("Congrats you did it!")
-    }
-        
-
-        
-
-
-
-
-
-
+    //         else {
+    //             system.out.println("Wrong, Try Again!");
+    //         user.setLenth(0);
+    //         }
+    //     }
+    //     System.out.println("Congrats you did it!");
     }
 }
