@@ -20,39 +20,65 @@ public class Mathle {
         } else {
             this.length = length;
         }
-        this.equation = new Equation();
+        equation = new Equation();
+        create(length);
+    }
+
+    //disclaimer: everything below is made by a very sleep deprived Boden. Please don't look.
+
+    public void create(int length) {
+        equation = new Equation();
 
         boolean isAtNumber = true;
         for (int i=0; i<length-3; i++) {
             if (isAtNumber) {
-                NumberGenerator a;
                 if (Math.random() > 0.4 || i>length-5) {
-                    a = new OneDigitGenerator(equation);
-                    equation.addNumber(a.getRandom());
+                    findNumber(new OneDigitGenerator(equation));
                 } else {
-                    a = new TwoDigitGenerator(equation);
-                    equation.addNumber(a.getRandom());
+                    if (!findNumber(new TwoDigitGenerator(equation))) {
+                        System.out.println("Restarting...");
+                        create(length);
+                        return;
+                    };
                     i++;
                 }
             } else {
-                OperatorGenerator a = new OperatorGenerator(equation);
-                equation.addOperator(a.getRandom());
+                findOperator(new OperatorGenerator(equation));
 
             }   
             isAtNumber = !isAtNumber;
         }
         if (isAtNumber) {
-            OneDigitGenerator a = new OneDigitGenerator(equation);
-            equation.addNumber(a.getRandom());
-            OperatorGenerator b = new OperatorGenerator(equation);
-            equation.addOperator(b.getRandom());
-            OneDigitGenerator c = new OneDigitGenerator(equation);
-            equation.addNumber(c.getRandom());
+            findNumber(new OneDigitGenerator(equation));
+            findOperator(new OperatorGenerator(equation));
+            findNumber(new OneDigitGenerator(equation));
         } else {
-            OperatorGenerator a = new OperatorGenerator(equation);
-            equation.addOperator(a.getRandom());
-            TwoDigitGenerator b = new TwoDigitGenerator(equation);
-            equation.addNumber(b.getRandom());
+            findOperator(new OperatorGenerator(equation));
+            if (!findNumber(new TwoDigitGenerator(equation))) {
+                System.out.println("Restarting...");
+                create(length);
+                return;
+            };
+        }
+        return;
+    }
+
+    public boolean findNumber(NumberGenerator n) {
+        Number i = n.getRandom();
+        for (int j=0; j<100; j++) {
+            if (equation.addNumber(i)) {
+                return true;
+            }
+            i = n.getRandom();
+        }
+        System.out.println("Too Many Failed Attempts");
+        return false;
+    }
+
+    public void findOperator(OperatorGenerator o) {
+        Operator i = o.getRandom();
+        while (!equation.addOperator(i)) {
+            i = o.getRandom();
         }
     }
 
