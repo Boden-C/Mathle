@@ -97,6 +97,7 @@ public class Equation {
         return currentValue;
     }
 
+    //Stole this code from https://stackoverflow.com/questions/3422673/how-to-evaluate-a-math-expression-given-in-string-form/3423360#:~:text=All%20code%20in%20this%20answer%20released%20to%20the%20public%20domain.%20Have%20fun!
     public static double eval(final String str) {
         return new Object() {
             int pos = -1, ch;
