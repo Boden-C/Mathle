@@ -15,7 +15,7 @@ public class OperatorGenerator {
 
         for (Operator symbol : new ArrayList<>(Arrays.asList(Operator.values()))) {
             if (parameter.getPastOperators().indexOf(symbol) == -1) { // if digit does not exist in past, increase the chance to get it
-                if (isPrime(parameter.getPastNumbers().get(parameter.getPastNumbers().size()-1).getNumber())) {
+                if (isPrime(parameter.getLastNumber().getNumber())) {
                     possibilites.remove(Operator.DIVIDE);
                     continue;
                 } else {

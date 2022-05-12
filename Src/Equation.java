@@ -15,7 +15,7 @@ public class Equation {
         currentValue = 0;
         pastNumbers = new ArrayList<>();
         pastOperators = new ArrayList<>();
-        log = true;
+        log = false;
     }
 
     public boolean addNumber(Number number) {
@@ -75,6 +75,20 @@ public class Equation {
 
     public ArrayList<Operator> getPastOperators() {
         return pastOperators;
+    }
+
+    public Number getLastNumber() {
+        if (pastNumbers.size() < 1) {
+            return new Number();
+        }
+        return pastNumbers.get(pastNumbers.size()-1);
+    }
+
+    public Operator getLastOperator() {
+        if (pastNumbers.size() < 1) {
+            return Operator.ADD;
+        }
+        return pastOperators.get(pastOperators.size()-1);
     }
 
     public String getEquation() {
