@@ -15,11 +15,13 @@ public class Equation {
 
     public boolean addNumber(Number number) {
         pastNumbers.add(number);
-        equation += number.getDigits().stream().map(String::valueOf).collect(Collectors.joining(","));
+        equation += number.getDigits().stream().map(String::valueOf).collect(Collectors.joining(""));
         return true;
     }
 
     public boolean addOperator(Operator operator) {
+        pastOperators.add(operator);
+        equation += "+";
         return true;
     }
 

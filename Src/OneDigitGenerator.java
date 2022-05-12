@@ -2,7 +2,7 @@ package Src;
 import java.util.ArrayList;
 import java.lang.Math;
 
-public class OneDigitGenerator {
+public class OneDigitGenerator implements NumberGenerator {
     private ArrayList<Integer> possibilites;
     private int chanceForNonReapting;
     private double exponentialIncreaseForHigh;
@@ -25,7 +25,7 @@ public class OneDigitGenerator {
 
     public Number getRandom() {
         Number num = new Number();
-        num.addDigit((int)(Math.random()*possibilites.size()));
+        num.addDigit(possibilites.get((int)(Math.random()*possibilites.size())));
         return num;
         
     }
