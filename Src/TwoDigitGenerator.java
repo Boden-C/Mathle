@@ -11,7 +11,7 @@ public class TwoDigitGenerator implements NumberGenerator {
     public TwoDigitGenerator(Equation parameter) {
         chanceForLow = 100; //No numbers can have more repeats than this
         exponentialDecreaseForHigh = 0.3; //
-        highestTens = 5;
+        highestTens = 2;
         ones = new OneDigitGenerator(parameter);
 
         possibilites = new ArrayList<>();
@@ -28,8 +28,12 @@ public class TwoDigitGenerator implements NumberGenerator {
 
     public Number getRandom() {
         Number num = new Number();
-        num.addDigit(possibilites.get((int)(Math.random()*possibilites.size())));
-        num.addDigit(ones.getRandom().getNumber());
+        try {
+            num.addDigit(possibilites.get((int)(Math.random()*possibilites.size())));
+            num.addDigit(ones.getRandom().getNumber());
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
         return num;
         
     }

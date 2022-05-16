@@ -8,12 +8,12 @@ public class Number {
         number = 0;
     }
 
-    public boolean addDigit(int digit) {
+    public void addDigit(int digit) throws Exception{
         if (digit < 0 || digit > 9) {
-            return false;
+            throw new Exception("Integer is not a digit");
         }
         number = number*10+digit;
-        return true;
+        return;
     }
 
     public int getNumber() {

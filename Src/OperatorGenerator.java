@@ -9,21 +9,23 @@ public class OperatorGenerator {
     private int chanceForNonReapting;
 
     public OperatorGenerator(Equation parameter) {
-        chanceForNonReapting = 10; // No operators can have more repeats than this
+        chanceForNonReapting = 20; // No operators can have more repeats than this
 
         possibilites = new ArrayList<>(Arrays.asList(Operator.values()));
 
         for (Operator symbol : new ArrayList<>(Arrays.asList(Operator.values()))) {
-            if (parameter.getPastOperators().indexOf(symbol) == -1) { // if digit does not exist in past, increase the chance to get it
+            if (parameter.getPastOperators().indexOf(symbol) == -1) { // if digit does not exist in past, increase the
+                                                                      // chance to get it
                 if (isPrime(parameter.getLastNumber().getNumber())) {
                     possibilites.remove(Operator.DIVIDE);
                     continue;
                 } else {
-                    for (int j = 0; j < chanceForNonReapting; j++) { // y=t\left(-r^{x}+1\right)
-                    possibilites.add(Operator.DIVIDE);
+                    for (int j = 0; j < chanceForNonReapting; j++) {
+                        possibilites.add(Operator.DIVIDE);
+                    }
                 }
-                }
-                for (int j = 0; j < chanceForNonReapting; j++) { // y=t\left(-r^{x}+1\right)
+
+                for (int j = 0; j < chanceForNonReapting; j++) {
                     possibilites.add(symbol);
                 }
             }
@@ -35,20 +37,19 @@ public class OperatorGenerator {
     }
 
     public Operator getRandom() {
-        return possibilites.get((int)(Math.random()*possibilites.size()));
+        return possibilites.get((int) (Math.random() * possibilites.size()));
     }
 
-    private boolean isPrime(Integer n)
-    {
+    private boolean isPrime(Integer n) {
         // Corner case
         if (n <= 1)
             return false;
-  
+
         // Check from 2 to n-1
         for (int i = 2; i < n; i++)
             if (n % i == 0)
                 return false;
-  
+
         return true;
     }
 }

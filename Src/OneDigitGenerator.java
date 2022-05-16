@@ -8,7 +8,7 @@ public class OneDigitGenerator implements NumberGenerator {
     private double exponentialIncreaseForHigh;
 
     public OneDigitGenerator(Equation parameter) {
-        chanceForNonReapting = 10; //No numbers can have more repeats than this
+        chanceForNonReapting = 20; //No numbers can have more repeats than this
         exponentialIncreaseForHigh = 0.6; //
 
         possibilites = new ArrayList<>();
@@ -24,7 +24,11 @@ public class OneDigitGenerator implements NumberGenerator {
 
     public Number getRandom() {
         Number num = new Number();
-        num.addDigit(possibilites.get((int)(Math.random()*possibilites.size())));
+        try {
+            num.addDigit(possibilites.get((int)(Math.random()*possibilites.size())));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return num;
         
     }

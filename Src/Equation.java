@@ -15,27 +15,27 @@ public class Equation {
         currentValue = 0;
         pastNumbers = new ArrayList<>();
         pastOperators = new ArrayList<>();
-        log = false;
+        log = true;
     }
 
-    public boolean addNumber(Number number) {
+    public void addNumber(Number number) throws Exception {
         String numString = number.getDigits().stream().map(String::valueOf).collect(Collectors.joining(""));
-        if (log) { System.out.println("Trying:"+equation+numString); };
+        if (log) System.out.println("Trying:"+equation+numString);
         Double check = eval(equation+numString);
-        if (check > 0 && check % 1 == 0 && check < 300) {
+        if (check > 0 && check % 1 == 0 && check < 100) {
             pastNumbers.add(number);
             equation += numString;
             currentValue = check.intValue();
-            return true;
+            return;
         }
-        if (log) { System.out.println("Failed:"+check); };
-        return false;
+        if (log) System.out.println("Failed:"+check);
+        throw new Exception("Number Is Not a Positive Integer");
     }
 
-    public boolean addOperator(Operator operator) {
+    public void addOperator(Operator operator) throws Exception {
         String lastChar = equation.substring(equation.length()-1);
         if (lastChar.equals("+") || lastChar.equals("-") || lastChar.equals("*") || lastChar.equals("/")) {
-            return false;
+            //throw new Exception("Operator in Past");
         }
         String operatorString;
         switch (operator) {
@@ -43,11 +43,11 @@ public class Equation {
             case SUBTRACT: operatorString = "-"; break;
             case MULTIPLY: operatorString = "*"; break;
             case DIVIDE: operatorString = "/"; break;
-            default: return false;
+            default: throw new Exception("Unknown Operator");
         }
         equation += operatorString;
         pastOperators.add(operator);
-        return true;
+        return;
     }
 
     public ArrayList<Number> getPastNumbers() {
@@ -155,8 +155,8 @@ public class Equation {
             }
             
             double parseFactor() {
-                if (eat('+')) return +parseFactor(); // unary plus
-                if (eat('-')) return -parseFactor(); // unary minus
+                // if (eat('+')) return +parseFactor(); // unary plus
+                // if (eat('-')) return -parseFactor(); // unary minus
                 
                 double x;
                 int startPos = this.pos;
