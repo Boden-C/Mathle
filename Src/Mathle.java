@@ -17,7 +17,7 @@ public class Mathle {
     Scanner myObj = new Scanner(System.in);
 
     public Mathle(int length) {
-        log = true;
+        log = false;
         if (length < 3) {
             this.length = 3;
             System.out.println("Smallest length is 3");
@@ -96,9 +96,8 @@ public class Mathle {
 
             return;
         }
-        if (log) {
+        if (log) 
             System.out.println("Too Many Failed Attempts");
-        }
         throw new Exception("Too Many Failed Attempts Resulting In Not A Positive Integer");
     }
 
@@ -171,5 +170,14 @@ public class Mathle {
 
     public String getEquation() {
         return equation.getEquation();
+    }
+
+    public int getValue() {
+        return equation.getCurrentValue();
+    }
+
+    public void setLog(boolean value) {
+        log = value;
+        equation.setLog(value);
     }
 }

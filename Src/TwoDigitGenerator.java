@@ -10,7 +10,7 @@ public class TwoDigitGenerator implements NumberGenerator {
 
     public TwoDigitGenerator(Equation parameter) {
         chanceForLow = 100; //No numbers can have more repeats than this
-        exponentialDecreaseForHigh = 0.3; //
+        exponentialDecreaseForHigh = 0.3;
         highestTens = 2;
         ones = new OneDigitGenerator(parameter);
 

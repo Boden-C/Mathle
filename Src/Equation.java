@@ -15,11 +15,11 @@ public class Equation {
         currentValue = 0;
         pastNumbers = new ArrayList<>();
         pastOperators = new ArrayList<>();
-        log = true;
+        log = false;
     }
 
     public void addNumber(Number number) throws Exception {
-        String numString = number.getDigits().stream().map(String::valueOf).collect(Collectors.joining(""));
+        String numString = String.valueOf(number.getNumber());
         if (log) System.out.println("Trying:"+equation+numString);
         Double check = eval(equation+numString);
         if (check > 0 && check % 1 == 0 && check < 100) {
@@ -35,7 +35,7 @@ public class Equation {
     public void addOperator(Operator operator) throws Exception {
         String lastChar = equation.substring(equation.length()-1);
         if (lastChar.equals("+") || lastChar.equals("-") || lastChar.equals("*") || lastChar.equals("/")) {
-            //throw new Exception("Operator in Past");
+            throw new Exception("Operator in Past");
         }
         String operatorString;
         switch (operator) {
@@ -109,6 +109,14 @@ public class Equation {
 
     public int getCurrentValue() {
         return currentValue;
+    }
+
+    public boolean getLog() {
+        return this.log;
+    }
+
+    public void setLog(boolean value) {
+        this.log = value;
     }
 
     //Stole this code from https://stackoverflow.com/questions/3422673/how-to-evaluate-a-math-expression-given-in-string-form/3423360#:~:text=All%20code%20in%20this%20answer%20released%20to%20the%20public%20domain.%20Have%20fun!
